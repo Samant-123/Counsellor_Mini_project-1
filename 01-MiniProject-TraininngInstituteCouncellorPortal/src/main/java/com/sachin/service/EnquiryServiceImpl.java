@@ -49,13 +49,13 @@ public class EnquiryServiceImpl implements EnquiryService
 	public List<Enquiry> getEnquiriesWithFilter(ViewEnqFilterRequest filterreq, Integer CouncellorId) {
 	Enquiry enq = new Enquiry();
 	if(StringUtils.isNotEmpty(filterreq.getClassMode())) {
-		filterreq.setClassMode(filterreq.getClassMode());
+		enq.setClassmode(filterreq.getClassMode());
 	}
 	if(StringUtils.isNotEmpty(filterreq.getCourseName())) {
-		filterreq.setCourseName(filterreq.getCourseName());
+		enq.setCoursename(filterreq.getCourseName());
 	}
 	if(StringUtils.isNotEmpty(filterreq.getStatus())) {
-		filterreq.setStatus(filterreq.getStatus());
+		enq.setEnqstatus(filterreq.getStatus());
 	}
 	
 	Counsellor councellor = coun_Repo.findById(CouncellorId).orElse(null);

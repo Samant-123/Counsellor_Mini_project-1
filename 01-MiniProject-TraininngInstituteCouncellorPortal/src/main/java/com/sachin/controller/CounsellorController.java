@@ -28,12 +28,10 @@ public class CounsellorController {
 
 //Handling Login Functionality
 	@PostMapping("/login")
-	public String login(Counsellor counsellor, HttpServletRequest req, Model model) 
-	{
+	public String login(Counsellor counsellor, HttpServletRequest req, Model model) {
 		Counsellor cobj = counsellorService.login(counsellor.getEmail(), counsellor.getPwd());
 
-		if (cobj == null) 
-		{
+		if (cobj == null) {
 			model.addAttribute("errmsg", "Invalid Credentail");
 			return "index";
 		} else {
@@ -47,18 +45,18 @@ public class CounsellorController {
 		}
 
 	}
-	//To see Dashboard Page
+
+	// To see Dash board Page
 	@GetMapping("/dashboard")
-	public String displayDashboard(HttpServletRequest req, Model model)
-	{
-		//Get existing Session Object
-				HttpSession session = req.getSession(false);
-				//We are getting the counselor ID
-				Integer counsellorId =(Integer) session.getAttribute("counsellorid");//counsellorid
-		
-				DashboardResponse dobj = counsellorService.getDashboardResponse(counsellorId);
-				model.addAttribute("dashboardresponse", dobj);
-				return "dashboard";
+	public String displayDashboard(HttpServletRequest req, Model model) {
+		// Get existing Session Object
+		HttpSession session = req.getSession(false);
+		// We are getting the counselor ID
+		Integer counsellorId = (Integer) session.getAttribute("counsellorid");// counsellorid
+
+		DashboardResponse dobj = counsellorService.getDashboardResponse(counsellorId);
+		model.addAttribute("dashboardresponse", dobj);
+		return "dashboard";
 	}
 
 	// Logout
@@ -72,34 +70,32 @@ public class CounsellorController {
 	// This method for display Registration page
 
 	@GetMapping("/register")
-	public String registerPage(Model model) 
-	{
+	public String registerPage(Model model) {
 		Counsellor coun = new Counsellor();
 		// sending data from controller to UI
 		model.addAttribute("counsellor", coun);
 		return "register";
 
 	}
-	//Handle the Registration Page
+
+	// Handle the Registration Page
 	@PostMapping("/register")
-	public String handleRegistration(Counsellor counsellor, Model model)
-	{
+	public String handleRegistration(Counsellor counsellor, Model model) {
 		Counsellor byEmail = counsellorService.findByEmail(counsellor.getEmail());
-		if(byEmail!=null) {
-			model.addAttribute("errmsg","Duplicate Email...!");
+		if (byEmail != null) {
+			model.addAttribute("errmsg", "Duplicate Email...!");
 			return "register";
 		}
 		boolean isRegister = counsellorService.registration(counsellor);
-		if(isRegister) {
-			model.addAttribute("scsmsg","Registration Success...!");
+		if (isRegister) {
+			model.addAttribute("scsmsg", "Registration Success...!");
 
+		} else {
+			model.addAttribute("errmsg", "Registration Failure...!");
 		}
-		else {
-			model.addAttribute("errmsg","Registration Failure...!");
-		}
-		
+
 		return "register";
-		
+
 	}
 
 }

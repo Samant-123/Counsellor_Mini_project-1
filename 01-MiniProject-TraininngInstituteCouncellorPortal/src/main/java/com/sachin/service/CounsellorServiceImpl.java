@@ -49,7 +49,7 @@ public class CounsellorServiceImpl implements CounsellorService
 				.filter(e-> e.getEnqstatus().equals("Lost"))
 				.collect(Collectors.toList()).size();
 		int opened = enqList.stream()
-				.filter(e-> e.getEnqstatus().equals("Opened"))
+				.filter(e-> e.getEnqstatus().equals("Open"))
 				.collect(Collectors.toList()).size();
 		response.setTotalEnqrs(totalenq);
 		response.setEnrolledEnqrs(enrolled);
